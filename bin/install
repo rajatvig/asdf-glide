@@ -26,6 +26,7 @@ install () {
   local -r bin_install_path="${install_path}/bin"
   local -r download_url="$(get_download_url "${version}")"
   local -r download_path="${TMP_DOWNLOAD_DIR}/$(get_filename "${version}")"
+  local -r platform="$(get_arch)"
 
   echo "Downloading ${toolname} version ${version} from ${download_url}"
   if curl -J -L -s "${download_url}" -o "${download_path}"; then
@@ -36,7 +37,8 @@ install () {
     mkdir -p "${bin_install_path}"
 
     echo "Extracting ${toolname} archive"
-    tar -xzf "${download_path}" -C "${bin_install_path}"
+    tar -xzf "${download_path}"
+    mv "${download_path}/${platform}-amd64/glide" "${bin_install_path}"
   else
     echo "Error: ${toolname} version ${version} not found" >&2
     exit 1
