@@ -37,7 +37,7 @@ install () {
     mkdir -p "${bin_install_path}"
 
     echo "Extracting ${toolname} archive"
-    tar -xzf "${download_path}"
+    tar -xzf "${download_path}" -C "${TMP_DOWNLOAD_DIR}"
     mv "${TMP_DOWNLOAD_DIR}/${platform}-amd64/glide" "${bin_install_path}"
   else
     echo "Error: ${toolname} version ${version} not found" >&2
